@@ -1,7 +1,7 @@
 <div  align="center">
 TP2
 
-<img src="../galilee.png?raw=true" alt="Logo Master" width=100/>
+<img src="../galilee.png" alt="Logo Master" width=100/>
 
 Master 3IR
 TP AW #2 : HTML & Javascript
