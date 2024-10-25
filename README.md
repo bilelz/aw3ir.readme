@@ -9,3 +9,4 @@ Vos comptes rendus devront être pousser dans votre dépot git https://github.co
 - [tp3/readme.md](tp3/readme.md)
 - [tp4/readme.md](tp4/readme.md)
 - [tp5/readme.md](tp5/readme.md)
+- [tp6/readme.md](tp6/readme.md)
