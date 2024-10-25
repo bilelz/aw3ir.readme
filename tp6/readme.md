@@ -20,6 +20,7 @@ Avec [Angular](https://angular.io) et [OpenWeatherMap](http://openweathermap.org
 <!-- TOC -->
 
 - [Prérequis](#pr%C3%A9requis)
+- [Configuration pour Windows](#configuration-pour-windows)
 - [Installer NodeJS](#installer-nodejs)
 - [Installer ng-cli](#installer-ng-cli)
   - [Créer un nouveau projet avec ng-cli](#cr%C3%A9er-un-nouveau-projet-avec-ng-cli)
@@ -55,6 +56,14 @@ Avec [Angular](https://angular.io) et [OpenWeatherMap](http://openweathermap.org
 - demander à Google 🔍
 - demander à vos camarades 👩‍🎓👨‍🎓
 - demander au professeur 🙋
+
+# 0. Prérequis pour Windows
+
+Si vous êtes sous Windows, lancer powershell et executer ce script pour autoriser l'utilisation des commandes à venir
+
+```cmd
+Set-ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+```
 
 # 1. Installer NodeJS
 
