@@ -19,29 +19,29 @@ Avec [Angular](https://angular.io) et [OpenWeatherMap](http://openweathermap.org
 
 <!-- TOC -->
 
-- [0. Prérequis](#0-prérequis)
-- [1. Installer NodeJS](#1-installer-nodejs)
-- [2. Installer ng-cli](#2-installer-ng-cli)
-  - [2.1. Créer un nouveau projet avec ng-cli](#21-créer-un-nouveau-projet-avec-ng-cli)
-  - [2.2. Importer Bootstrap et weather-icons avec NPM](#22-importer-bootstrap-et-weather-icons-avec-npm)
-  - [2.3. Lancer l'application](#23-lancer-lapplication)
-- [3. Edition de votre premier `component` Angular](#3-edition-de-votre-premier-component-angular)
-  - [3.1 `app.component.ts`](#31-appcomponentts)
-  - [3.2. CSS du `app.component.css`](#32-css-du-appcomponentcss)
-- [4. TP : Formulaire et gestion de la liste des villes](#4-tp--formulaire-et-gestion-de-la-liste-des-villes)
-  - [4.1 Créer un component pour le formulaire de recherche](#41-créer-un-component-pour-le-formulaire-de-recherche)
-    - [a. Générer un component meteo](#a-générer-un-component-meteo)
+- [Prérequis](#pr%C3%A9requis)
+- [Installer NodeJS](#installer-nodejs)
+- [Installer ng-cli](#installer-ng-cli)
+  - [Créer un nouveau projet avec ng-cli](#cr%C3%A9er-un-nouveau-projet-avec-ng-cli)
+  - [Importer Bootstrap et weather-icons avec NPM](#importer-bootstrap-et-weather-icons-avec-npm)
+  - [Lancer l'application](#lancer-lapplication)
+- [Edition de votre premier component Angular](#edition-de-votre-premier-component-angular)
+  - [app.component.ts](#appcomponentts)
+  - [CSS du app.component.css](#css-du-appcomponentcss)
+- [TP : Formulaire et gestion de la liste des villes](#tp--formulaire-et-gestion-de-la-liste-des-villes)
+  - [Créer un component pour le formulaire de recherche](#cr%C3%A9er-un-component-pour-le-formulaire-de-recherche)
+    - [a. Générer un component meteo](#a-g%C3%A9n%C3%A9rer-un-component-meteo)
     - [b. Ajouter le dans app.component.html](#b-ajouter-le-dans-appcomponenthtml)
-  - [4.2. Fomulaire : ajout du module FormModule](#42-fomulaire--ajout-du-module-formmodule)
-- [5. Gestion de la liste](#5-gestion-de-la-liste)
-- [6. Affichage de la liste](#6-affichage-de-la-liste)
-- [7. Ajout d'une page pour afficher la météo](#7-ajout-dune-page-pour-afficher-la-météo)
-- [8. Ajout un emplacement dans la page principale + une navbar](#8-ajout-un-emplacement--dans-la-page-principale--une-navbar)
-- [9. Créer le service MeteoService](#9-créer-le-service-meteoservice)
-- [10. Créer le component MeteoDetailComponent](#10-créer-le-component-meteodetailcomponent)
-  - [11. Mettre en forme les dates](#11-mettre-en-forme-les-dates)
-- [12. Build : créer un package de votre application](#12-build--créer-un-package-de-votre-application)
-- [13. Meteo sur 5 jours](#13-meteo-sur-5-jours)
+  - [Fomulaire : ajout du module FormModule](#fomulaire--ajout-du-module-formmodule)
+- [Gestion de la liste](#gestion-de-la-liste)
+- [Affichage de la liste](#affichage-de-la-liste)
+- [Ajout d'une page pour afficher la météo](#ajout-dune-page-pour-afficher-la-m%C3%A9t%C3%A9o)
+- [Ajout un emplacement dans la page principale + une navbar](#ajout-un-emplacement--dans-la-page-principale--une-navbar)
+- [Créer le service MeteoService](#cr%C3%A9er-le-service-meteoservice)
+- [Créer le component MeteoDetailComponent](#cr%C3%A9er-le-component-meteodetailcomponent)
+  - [Mettre en forme les dates](#mettre-en-forme-les-dates)
+- [Build : créer un package de votre application](#build--cr%C3%A9er-un-package-de-votre-application)
+- [Meteo sur 5 jours](#meteo-sur-5-jours)
 
 <!-- /TOC -->
 
@@ -143,8 +143,10 @@ ng new meteo-angular --standalone=false
 Pour les options d'installation, répondre :
 
 ```cmd
+Would you like to share pseudonymous usage data about this project with the Angular Team [...] see https://angular.dev/cli/analytics. ? 👉 No 👈
 ? Would you like to add Angular routing? 👉 Yes 👈
 ? Which stylesheet format would you like to use? 👉 CSS 👈
+? Do you want to enable Server-Side Rendering (SSR) and Static Site Generation (SSG/Prerendering)? 👉 No 👈
 ```
 
 Cela va vous créer donc le projet avec cette arborescence :
@@ -171,9 +173,6 @@ tp6/
 │            ├── app.component.spec.ts
 │            ├── app.component.ts
 │            └── app.module.ts
-│   └── environments            // configuration du projet pour la génération des packages pour la plateforme de production et de dev
-│            ├── environment.prod.ts
-│            └── environment.ts
 ```
 
 <div align="center">Plus d'explications sur le rôle de chaque fichier: <a href="https://angular.io/guide/quickstart#project-file-review">angular.io/guide/quickstart#project-file-review</a>
