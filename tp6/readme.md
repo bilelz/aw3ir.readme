@@ -185,8 +185,10 @@ Pour mieux comprendre l'architecture : https://angular.io/guide/architecture
 ```
 cd meteo-angular
 npm install --save bootstrap
-npm install --save git+https://git@github.com/erikflowers/weather-icons.git
+
 ```
+
+<!-- npm install --save git+https://git@github.com/erikflowers/weather-icons.git -->
 
 `--save` permet de référencer ces packages dans notre fichier de d'installation `package.json`
 
@@ -194,8 +196,9 @@ Dans le fichier `styles.css` ajouter une référence vers les fichiers CSS de bo
 
 ```css
 @import "bootstrap/dist/css/bootstrap.min.css";
-@import "weather-icons/css/weather-icons.min.css";
 ```
+
+<!-- /*@import "weather-icons/css/weather-icons.min.css"; */ -->
 
 <div align="center">tp6\meteo-angular\src\styles.css</div>
 
