@@ -199,13 +199,24 @@ myModal.show();
 ![Texte alternatif](image3.png "texte pour le titre, facultatif")  
 Modal quand tous les champs sont OK
 
-3.  Pour l'image voir documentation vers Google Static Maps API https://developers.google.com/maps/documentation/static-maps/
+3. ~~Pour l'image voir documentation vers Google Static Maps API https://developers.google.com/maps/documentation/static-maps/~~
 
+**Pas d'image à afficher.** (les images statiques de Google Maps sont devenus payantes)
+
+<!--
 - Clé Google Map Image à utiliser `AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg`
 
   - Exemple avec une image centrée sur Paris: <a href="https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg">
     <img src="https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg" alt='google map' width=200/>
     </a><br/>
-    https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg
+    https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg -->
 
-4.  L'image devra être entouré par un lien hypertexte vers Google Mapas: http://maps.google.com/maps?q=Paris
+4.  Le nom de la ville devra être entouré par un lien hypertexte vers Google Maps:
+
+```html
+<a href="http://maps.google.com/maps?q=Paris" target="_blank">Paris</a>
+```
+
+Le nom de de la ville devrait biensûr être dynamique.
+
+-- FIN --
