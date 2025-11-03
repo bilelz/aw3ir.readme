@@ -38,6 +38,7 @@ Ajout de fonctionnalités HTML5 au formulaire
   - Article à ce sujet: https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
 - JS : Manipuler des objets JSON
   - voir documentation sur https://www.w3schools.com/js/js_json_intro.asp
+- Afficher une map dans une [iframe](https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/iframe) centrée sur les coodonnées GPS de l'utilsateur : https://www.openstreetmap.org/export/embed.html?bbox=-1.7277580000000001%2C49.907351%2C1.472242%2C53.107351&layer=mapnik&marker=51.507351%2C-0.127758
 
 Reprenez le formulaire et les règles de validationdu [TP 3](../tp3/) :
 
@@ -47,7 +48,7 @@ Reprenez le formulaire et les règles de validationdu [TP 3](../tp3/) :
 - Adresse postale (5 caractères mininum)
 - Adresse mail (doit être bien formaté)
 
-![Texte alternatif](tp4.PNG "texte pour le titre, facultatif")
+![Texte alternatif](battuta.jpg "texte pour le titre, facultatif")
 
 ## 2. Plateforme de dév (idem que le TP3)
 
@@ -62,14 +63,6 @@ tp3/
     ├── bootstrap.bundle.js
     └── form-validation.js
 ```
-
-- Clé Google Map Image à utiliser
-  `AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg`
-
-Exemple avec une image centrée sur Paris: <a href="https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg">
-<img src="https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg" alt='google map' width=200/>
-</a><br/>
-`https://maps.googleapis.com/maps/api/staticmap?markers=Paris&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg`
 
 ## 3. Geolocalisation HTML5
 
@@ -93,10 +86,31 @@ function getLocation() {
 
 // Si l"utilisateur l'autorise, on récupère les coordonnées dans l'objet "position"
 function showPosition(position) {
-  var latlon = position.coords.latitude + "," + position.coords.longitude;
-  var img_url = `https://maps.googleapis.com/maps/api/staticmap?center=${latlon}&zoom=14&size=400x300&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg`;
+  // paramètres pour l'affichage de la carte openstreetmap
+  // Définir un facteur d’échelle selon le zoom (plus zoomé → bbox plus petite)
+  const zoom = 5;
+  const delta = 0.05 / Math.pow(2, zoom - 10);
 
-  document.querySelector("#map").innerHTML = `<img src='${img_url}'>`;
+  const bboxEdges = {
+    south: position.coords.latitude - delta,
+    north: position.coords.latitude + delta,
+    west: position.coords.longitude - delta,
+    east: position.coords.longitude + delta,
+  };
+
+  const bbox = `${bboxEdges.west}%2C${bboxEdges.south}%2C${bboxEdges.east}%2C${bboxEdges.north}`;
+  const iframeSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${position.coords.latitude}%2C${position.coords.longitude}`;
+
+  // Injecter l'iframe
+  document.getElementById("map").innerHTML = `
+        <iframe
+          width="100%"
+          height="200"
+          frameborder="0"
+          scrolling="no"
+          src="${iframeSrc}" >
+        </iframe>
+      `;
 }
 
 // Au cas ou l'utilisateur refuse
@@ -130,9 +144,10 @@ Dans votre script **form-validation.js** intercepter le click sur ce bouton et u
 
 La géolocalisation vous donnera la **latitude** et la **longitude** de l’utilisateur.
 
-Afficher une image (dans le code JS ci-dessus ça s'affiche dans une DIV avec id="map") de Google Maps centrée sur ces coordonnées GPS (documentation de l’API google maps)
+Afficher une map (dans le code JS ci-dessus ça s'affiche dans une DIV avec id="map") OpenstreetMap centrée sur ces coordonnées GPS (documentation de l’API google maps)
 
-URL de l’image : https://maps.googleapis.com/maps/api/staticmap?markers=latitude,longitude&zoom=14&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg
+URL de la map à afficher dans une [iframe](https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/iframe) (exemple pour Londres) : https://www.openstreetmap.org/export/embed.html?bbox=-1.7277580000000001%2C49.907351%2C1.472242%2C53.107351&layer=mapnik&marker=51.507351%2C-0.127758
+Post détaillant son fonctionnement: https://simonwillison.net/2024/Nov/25/openstreetmap-embed-url/
 
 ### 4. 💡 Simuler d'autres coordonées GPS depuis l'outil de dev. de Chrome
 
@@ -143,8 +158,8 @@ Pour ce faire :
 - Aller dans l'outil de dévelopmment : touche **F12** ou **⁝**(Menu de Chrome)/**Plus d'outils**/**Outils de developpement**
 - Cliquez sur les "**...**", choisir **More Tools** puis **Sensors**
 - <img src="sensors.jpg" alt="sensors">
-- Vous aurez accés à l'onglet "Sensors", dans la section **Location**, vous pourrez choisir l'une des villes préselectionnée (par exemple **Mountain View**)
-- <img src="mountain.jpg" alt="mountain view">
+- Vous aurez accés à l'onglet "Sensors", dans la section **Location**, vous pourrez choisir l'une des villes préselectionnée (par exemple **sao paulo**)
+- <img src="saopaulo.jpg" alt="saopaulo">
 - Cliquez sur le bouton "GPS" de votre page web pour actualiser et vérifier les coordonnées lat/lon et l'image Google Maps de votre formulaire.
 
 ## 4. Afficher le nombre de caractère saisie
@@ -168,17 +183,20 @@ On pourra la cibler en CSS et JS, grâce à un selecteur
 ```html
 <form>
   <div class="row mb-3">
-    <label for="name" class="col-sm-2 col-form-label">Nom</label>
-    <div class="col-sm-10">
+    <div class="form-group col-2">
+      <label for="name">Nom</label>
+    </div>
+    <div class="form-group col">
       <input
         type="text"
         class="form-control"
+        placeholder=""
         id="name"
-        onkeypress="calcNbChar(this.id)"
+        autofocus
+        onkeyup="calcNbChar(this.id)"
       />
-      <span></span>
-      <!-- balise mise à jour dynamiquement en JS -->
     </div>
+    <div class="form-group col-1" data-count>0 car.</div>
   </div>
 </form>
 ```
@@ -187,9 +205,15 @@ On pourra la cibler en CSS et JS, grâce à un selecteur
 
 ```js
 function calcNbChar(id) {
-  document.querySelector(`#${id} + span`).textContent = document.querySelector(
-    `#${id}`
-  ).value.length;
+  const countElement = document
+    .querySelector(`#${id}`)
+    .parentElement.parentElement.querySelector("[data-count]");
+  // on cherche le champ de saisie avec l'identifiant donné en paramêtre,
+  // puis on remonte de 2 noeuds au dessus pour trouver ensuite
+  // l'élément qui a l'attribut data-count
+
+  countElement.textContent =
+    document.querySelector(`#${id}`).value.length + " car.";
 }
 ```
 
@@ -285,17 +309,21 @@ var contactStore = (function () {
 - Créer une fonction pour afficher les contacts sous forme de tableau HTML:
 
 ```js
-function displayContactList(){
-  const contactListString = localStorage.getItem('contactList'); // ici on va récupérer la liste en forme de chaine de caractère (string)
+function displayContactList() {
+  const contactListString = localStorage.getItem("contactList"); // ici on va récupérer la liste en forme de chaine de caractère (string)
   const contactList = contactListString ? JSON.parse(contactListString) : [];
-
-  for(const contact of contactList){
-document.querySelector("table tbody").innerHTML +=
-  `<tr>
+  document.querySelector("table tbody").innerHTML = "";
+  for (const contact of contactList) {
+    document.querySelector("table tbody").innerHTML += `<tr>
   <td>${contact.name}</td>
-  <td> ${contact.firstName} </td>
-  <!-- CODE à compléter pour insérer les autres données du contact -->
-  <tr>`;
+  <td> ${contact.firstname} </td>
+  <td>${contact.date}</td>
+  <td> ${contact.adress} </td>
+  <td>${contact.mail}</td> 
+  <!-- CODE à compléter pour mettre en forme les données (lien vers google maps, mail cliquable) -->
+  <tr>
+  `;
+  }
 }
 ```
 
@@ -304,8 +332,29 @@ document.querySelector("table tbody").innerHTML +=
 
 ```js
 window.onload = function () {
+  // ce code est exécuter une fois que toute la page est téléchargée par le navigateur
+  // voir plus : https://www.w3schools.com/js/js_htmldom.asp
+  console.log("DOM ready!");
   displayContactList();
+
+  document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    console.log("form submitted!");
+    contactStore.add(
+      document.querySelector(`#name`).value,
+      document.querySelector(`#firstname`).value,
+      document.querySelector(`#birth`).value,
+      document.querySelector(`#adresse`).value,
+      document.querySelector(`#mail`).value
+    );
+    displayContactList();
+  });
+
+  document.querySelector("#gps").addEventListener("click", function (event) {
+    event.preventDefault();
+    getLocation();
+  });
 };
 ```
 
-- à coté du bouton "Ajouter", ajouter un bouton supprimer qui va appeler la fonction ``
+- à coté du bouton "Ajouter", ajouter un bouton **Reset** qui va appeler la fonction `contactStore.reset()`
