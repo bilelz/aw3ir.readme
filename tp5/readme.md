@@ -69,7 +69,7 @@ Une fois installé, en bas à droite :
 - la page se rafraichira automatiquement ( à chaque enregistrement d'un nouveau code source)
 
 <p align="center">
-<kbd><img src="img/liveserver.png" height="500"></kbd><br/>
+<kbd><img src="img/liveserver.png" height="800" ></kbd><br/>
 TP du jour
 </p>
 
