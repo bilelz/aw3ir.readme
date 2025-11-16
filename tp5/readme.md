@@ -34,6 +34,7 @@ TP du jour
 - [11. (index.html) Affichage de la méteo](#11-indexhtml-affichage-de-la-méteo)
 - [12. Affichage une image Google Map](#12-affichage-une-image-google-map)
 - [13. Affichage des icones météo](#13-affichage-des-icones-météo)
+- [14. Bonus : Ajouter un bouton "Ma position""](#14-bonus--ajouter-un-bouton-ma-position)
 
 <!-- /TOC -->
 
