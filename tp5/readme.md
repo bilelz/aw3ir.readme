@@ -172,6 +172,68 @@ window.onload = function () {
         // A compléter dans la suite du TP
       },
     },
+    computed: {
+      cityWheaterDate: function () {
+        if (this.cityWeather !== null) {
+          var date = new Date(this.cityWeather.dt * 1000);
+
+          // ici l'operateur ternaire pour tester si les minutes sont < à 10
+          // pour y ajouter un 0
+          // 9 minutes deviendra 09
+          // 11 restera 11
+          var minutes =
+            date.getMinutes() < 10
+              ? "0" + date.getMinutes()
+              : date.getMinutes();
+          return date.getHours() + ":" + minutes;
+        } else {
+          return "";
+        }
+      },
+      cityWheaterSunrise: function () {
+        if (this.cityWeather !== null) {
+          var date = new Date(this.cityWeather.sys.sunrise * 1000);
+          var minutes =
+            date.getMinutes() < 10
+              ? "0" + date.getMinutes()
+              : date.getMinutes();
+          return date.getHours() + ":" + minutes;
+        } else {
+          return "";
+        }
+      },
+      cityWheaterSunset: function () {
+        if (this.cityWeather !== null) {
+          var date = new Date(this.cityWeather.sys.sunset * 1000);
+          var minutes =
+            date.getMinutes() < 10
+              ? "0" + date.getMinutes()
+              : date.getMinutes();
+          return date.getHours() + ":" + minutes;
+        } else {
+          return "";
+        }
+      },
+      // calcul de la zone d'affichage de la carte openstreetmap
+      openStreetMapArea: function () {
+        if (this.cityWeather !== null) {
+          // Définir un facteur d’échelle selon le zoom (plus zoomé → bbox plus petite)
+          const zoom = 8;
+          const delta = 0.05 / Math.pow(2, zoom - 10);
+
+          const bboxEdges = {
+            south: this.cityWeather.coord.lat - delta,
+            north: this.cityWeather.coord.lat + delta,
+            west: this.cityWeather.coord.lon - delta,
+            east: this.cityWeather.coord.lon + delta,
+          };
+
+          return `${bboxEdges.west}%2C${bboxEdges.south}%2C${bboxEdges.east}%2C${bboxEdges.north}`;
+        } else {
+          return "";
+        }
+      },
+    },
   });
 };
 ```
@@ -414,12 +476,17 @@ Carte météo
 
 <div v-if="cityWeather">
   <div class="card" style="width: 18rem;" v-if="cityWeather">
-    <div class="card-header">{{cityWeather.name}}</div>
-    <img
+    <div class="card-header">{{cityWeather.name}} @{{cityWheaterDate}}</div>
+    <iframe
       class="card-img-top"
-      v-bind:src="'url google map'"
       alt="Card image cap"
-    />
+      width="100%"
+      height="200"
+      frameborder="0"
+      scrolling="no"
+      v-bind:src="'url de l iframe Open street map'"
+    >
+    </iframe>
 
     <div class="card-body">
       <h5 class="card-title">
@@ -453,17 +520,17 @@ Carte météo
 </div>
 ```
 
-## 12. Affichage une image Google Map
+## 12. Affichage une iframe Open Street Map
 
-- Afficher une image en utilisant les coordonnées lattitude et longitude renvoyées par OpenWeathermap
+- Afficher une image en utilisant les coordonnées lattitude et longitude renvoyées par OpenWeathermap : https://www.openstreetmap.org/export
 
-  - Pattern de l'URL:
+  - Pattern de l'URL à utiliser dans l'iframe:
 
 ```
-https://maps.googleapis.com/maps/api/staticmap?markers='+LATITTUDE+','+LONGITUDE+'&zoom=5&size=400x300&scale=2&key=AIzaSyAkmvI9DazzG9p77IShsz_Di7-5Qn7zkcg'
+'https://www.openstreetmap.org/export/embed.html?bbox='+openStreetMapArea+'&layer=mapnik&marker='+cityWeather.coord.lat+'%2C'+cityWeather.coord.lon
 ```
 
-- Si l'image ne s'affiche pas, essayez en mettant une autre clé Google (key)
+`openStreetMapArea` est une méthode (dans votre code main.js) qui va calculer la zone sur laquelle OSM va zoomé pour monter la ville demandée.
 
 ## 13. Affichage des icones météo
 
@@ -502,6 +569,11 @@ Pour utiliser les icones, il suffit de connaitre la classe CSS correspondante, e
 ```html
 <i class="wi wi-cloud"></i>
 ```
+
+## 14. Bonus : Ajouter un bouton "Ma position""
+
+- Ajouter un bouton "ma position" qui va demander les coordonnées GPS à l'utilisateur (comme dans le TP4).
+- Afficher la carte météo selon les coordonnées GPS recueillies.
 
 <p align="center">
 --- Fin du TP ---
